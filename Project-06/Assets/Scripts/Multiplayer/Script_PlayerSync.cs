@@ -36,6 +36,17 @@ public class Script_PlayerSync : NetworkBehaviour {
 
     void Start()
     {
+
+        if (Network.isServer)
+        {
+            ScriptLevelGeneration levelGenerator = new ScriptLevelGeneration();
+            levelGenerator.GenerateLevel();
+        }
+        else
+        {
+
+        }
+
         if (!isLocalPlayer)
         {
             Destroy(myController);
@@ -108,4 +119,9 @@ public class Script_PlayerSync : NetworkBehaviour {
 
     }
     #endregion
+
+    void OnPlayerConnected(NetworkPlayer player)
+    {
+        Debug.Log("Player " + player);
+    }
 }

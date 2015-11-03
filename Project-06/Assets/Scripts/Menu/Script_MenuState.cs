@@ -85,8 +85,6 @@ public class Script_MenuState : MonoBehaviour {
             {"setup server", MenuCommands.SETUP_SERVER },
             {"connect to server", MenuCommands.CONNECT_CLIENT }
         };
-
-        Debug.Log("Curr state = " + CurrentState);
     }
 
     /// <summary>
