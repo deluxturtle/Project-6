@@ -31,6 +31,9 @@ GameObject:
   - 114: {fileID: 11424138}
   - 114: {fileID: 11473332}
   - 114: {fileID: 11472966}
+  - 114: {fileID: 11482694}
+  - 114: {fileID: 11489210}
+  - 114: {fileID: 11463512}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -325,6 +328,18 @@ MonoBehaviour:
     i15: 240
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 1
+--- !u!114 &11463512
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 140314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee98c8bf3a3e9b342ae94c4190b2f969, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isDead: 0
 --- !u!114 &11472966
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -347,6 +362,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f04b2bf136194204db447fff88a32ede, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myName: 
   myTransform: {fileID: 485048}
   myRigidbody: {fileID: 5436342}
   myCollider: {fileID: 13620180}
@@ -358,6 +374,30 @@ MonoBehaviour:
   rotationThreshold: 6
   positionLerpRate: 15
   positionThreshold: .300000012
+  sceneLevel: {fileID: 154142, guid: 563693e9f77f15f41b3cd4f803138bb8, type: 2}
+--- !u!114 &11482694
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 140314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 179df11e049178e49b6803406da09fe6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &11489210
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 140314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ccb5f230e365f84086332ef0672a020, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  camTransform: {fileID: 479764}
 --- !u!136 &13620180
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -410,6 +450,14 @@ Prefab:
       propertyPath: rotationThreshold
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: camTransform
+      value: 
+      objectReference: {fileID: 479764}
+    - target: {fileID: 0}
+      propertyPath: sceneLevel
+      value: 
+      objectReference: {fileID: 154142, guid: 563693e9f77f15f41b3cd4f803138bb8, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 140314}

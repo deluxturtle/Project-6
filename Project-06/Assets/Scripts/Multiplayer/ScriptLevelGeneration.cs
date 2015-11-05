@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.Networking;
 
-public class ScriptLevelGeneration: MonoBehaviour {
+public class ScriptLevelGeneration : NetworkBehaviour
+{
 
     [Header("Level Settings")]
     public int levelLength = 4;
@@ -18,20 +20,27 @@ public class ScriptLevelGeneration: MonoBehaviour {
     public float heightLimit = 3;
     int levelBlockSize = 5;
 
-    
-    List<GameObject> floorObjects = new List<GameObject>();
-    List<GameObject> wallObjects = new List<GameObject>();
-    List<GameObject> randomObjects = new List<GameObject>();
 
+    public List<GameObject> level;
+
+    [SyncVar]
+    string testLevel = "";
+
+    bool levelGenerated = false;
+
+    //List<GameObject> floorObjects = new List<GameObject>();
+    //List<GameObject> wallObjects = new List<GameObject>();
+    //List<GameObject> randomObjects = new List<GameObject>();
 
     public void GenerateLevel()
     {
+        level = new List<GameObject>();
         //generate floor
-        for(int i = 0; i < levelWidth; i++)
+        for (int i = 0; i < levelWidth; i++)
         {
-            for(int k = 0; k < levelLength; k++)
+            for (int k = 0; k < levelLength; k++)
             {
-                GameObject tempFloor = 
+                GameObject tempFloor =
                     (GameObject)Instantiate(
                         floor,
                         new Vector3(
@@ -42,13 +51,14 @@ public class ScriptLevelGeneration: MonoBehaviour {
                         Quaternion.identity
                         );
                 tempFloor.transform.parent = transform;
-                floorObjects.Add(tempFloor);
+
+                level.Add(tempFloor);
 
 
                 //adds boundry walls
                 if (i == 0 || i == (levelWidth - 1) || k == 0 || k == (levelLength - 1))
                 {
-                    GameObject tempWall = 
+                    GameObject tempWall =
                         (GameObject)Instantiate(
                             block,
                             new Vector3(
@@ -60,14 +70,15 @@ public class ScriptLevelGeneration: MonoBehaviour {
                         );
 
                     tempWall.transform.parent = transform;
-                    wallObjects.Add(tempWall);
+                    //wallObjects.Add(tempWall);
+                    level.Add(tempWall);
                 }
             }
 
         }
 
         //place random objects
-        for(int i = 0; i < howManyObjects; i++)
+        for (int i = 0; i < howManyObjects; i++)
         {
             float tempX = Random.Range(1, (levelWidth - 1));
             float tempY = Random.Range(1, heightLimit);
@@ -84,10 +95,26 @@ public class ScriptLevelGeneration: MonoBehaviour {
                     Quaternion.identity
                 );
 
-
             tempObject.transform.parent = transform;
-            randomObjects.Add(tempObject);
+            //randomObjects.Add(tempObject);
+            level.Add(tempObject);
         }
-        
+        foreach(GameObject item in level)
+        {
+            testLevel += item.name + item.transform.position + "|";
+        }
+        CmdProvideLevelToServer(testLevel);
+    }
+
+    [Command]
+    void CmdProvideLevelToServer(string pLevel)
+    {
+        testLevel = pLevel;
+    }
+
+    [Client]
+    public string SendLevel()
+    {
+        return testLevel;
     }
 }

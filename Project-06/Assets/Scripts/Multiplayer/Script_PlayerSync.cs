@@ -9,6 +9,11 @@ public class Script_PlayerSync : NetworkBehaviour {
     Quaternion syncedRotation;
 
     #region variables
+    [SyncVar]
+    public string myName;
+
+    string level;
+
     [Header("\tReference Values")]
     public Transform myTransform;
 
@@ -34,25 +39,38 @@ public class Script_PlayerSync : NetworkBehaviour {
     Vector3 lastPlayerPosition;
     #endregion
 
+    public GameObject sceneLevel;
+
+    public override void OnStartServer()
+    {
+        base.OnStartServer();
+        sceneLevel.GetComponent<ScriptLevelGeneration>().GenerateLevel();
+    }
+
+    [Command]
+    void CmdSetName(string pName)
+    {
+        myName = pName;
+    }
+
     void Start()
     {
-
-        if (Network.isServer)
-        {
-            ScriptLevelGeneration levelGenerator = new ScriptLevelGeneration();
-            levelGenerator.GenerateLevel();
-        }
-        else
-        {
-
-        }
-
         if (!isLocalPlayer)
         {
             Destroy(myController);
             Destroy(myRigidbody);
             Destroy(myCollider);
             Destroy(myCameraObject);
+        }
+        else
+        {
+            GameObject manager = GameObject.Find("Network Manager");
+            myName = manager.GetComponent<ScriptMyName>().myName;
+            CmdSetName(myName);
+
+            
+            level = sceneLevel.GetComponent<ScriptLevelGeneration>().SendLevel();
+            Debug.Log(level);
         }
     }
 
@@ -120,8 +138,4 @@ public class Script_PlayerSync : NetworkBehaviour {
     }
     #endregion
 
-    void OnPlayerConnected(NetworkPlayer player)
-    {
-        Debug.Log("Player " + player);
-    }
 }
