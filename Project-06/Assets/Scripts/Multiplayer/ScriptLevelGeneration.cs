@@ -32,7 +32,7 @@ public class ScriptLevelGeneration : NetworkBehaviour
     //List<GameObject> wallObjects = new List<GameObject>();
     //List<GameObject> randomObjects = new List<GameObject>();
 
-    public void GenerateLevel()
+    public override void OnStartServer()
     {
         level = new List<GameObject>();
         //generate floor

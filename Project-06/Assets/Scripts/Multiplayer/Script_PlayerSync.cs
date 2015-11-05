@@ -39,13 +39,6 @@ public class Script_PlayerSync : NetworkBehaviour {
     Vector3 lastPlayerPosition;
     #endregion
 
-    public GameObject sceneLevel;
-
-    public override void OnStartServer()
-    {
-        base.OnStartServer();
-        sceneLevel.GetComponent<ScriptLevelGeneration>().GenerateLevel();
-    }
 
     [Command]
     void CmdSetName(string pName)
@@ -68,9 +61,7 @@ public class Script_PlayerSync : NetworkBehaviour {
             myName = manager.GetComponent<ScriptMyName>().myName;
             CmdSetName(myName);
 
-            
-            level = sceneLevel.GetComponent<ScriptLevelGeneration>().SendLevel();
-            Debug.Log(level);
+        
         }
     }
 
