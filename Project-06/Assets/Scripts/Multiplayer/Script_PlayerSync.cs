@@ -1,6 +1,11 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
 
+
+/// <summary>
+/// @Author: Andrew Seba
+/// @Description: Syncs player movement across the network.
+/// </summary>
 public class Script_PlayerSync : NetworkBehaviour {
 
     [SyncVar]
@@ -52,7 +57,7 @@ public class Script_PlayerSync : NetworkBehaviour {
         {
             Destroy(myController);
             Destroy(myRigidbody);
-            Destroy(myCollider);
+            //Destroy(myCollider);
             Destroy(myCameraObject);
         }
         else
@@ -60,8 +65,6 @@ public class Script_PlayerSync : NetworkBehaviour {
             GameObject manager = GameObject.Find("Network Manager");
             myName = manager.GetComponent<ScriptMyName>().myName;
             CmdSetName(myName);
-
-        
         }
     }
 
@@ -125,7 +128,6 @@ public class Script_PlayerSync : NetworkBehaviour {
     void LerpPosition()
     {
         myTransform.position = Vector3.Lerp(myTransform.position, syncedPosition, Time.deltaTime * positionLerpRate);
-
     }
     #endregion
 

@@ -56,6 +56,7 @@ public class ScriptPlayerShoot : NetworkBehaviour {
     [Command]
     void CmdTellServerWhoWasShot(string pIdentity, int pDamage)
     {
+        Debug.Log("I shot");
         GameObject go = GameObject.Find(pIdentity);
         go.GetComponent<Script_PlayerHealth>().DeductHealth(pDamage);
         //Apply damage to that player.

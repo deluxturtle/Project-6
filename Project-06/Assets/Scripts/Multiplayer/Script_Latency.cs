@@ -3,6 +3,10 @@ using System.Collections;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 
+/// <summary>
+/// @Author: Andrew Seba
+/// @Description: Shows a latency text on the screen.
+/// </summary>
 public class Script_Latency : NetworkBehaviour {
 
     NetworkClient client;

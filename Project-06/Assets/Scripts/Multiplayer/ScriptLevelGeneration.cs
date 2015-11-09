@@ -3,6 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.Networking;
 
+
+/// <summary>
+/// @Author: Andrew Seba
+/// @Description: Generates a level
+/// </summary>
 public class ScriptLevelGeneration : NetworkBehaviour
 {
 
@@ -23,7 +28,6 @@ public class ScriptLevelGeneration : NetworkBehaviour
 
     public List<GameObject> level;
 
-    [SyncVar]
     string testLevel = "";
 
     bool levelGenerated = false;
@@ -106,15 +110,23 @@ public class ScriptLevelGeneration : NetworkBehaviour
         CmdProvideLevelToServer(testLevel);
     }
 
+    //public void OnPlayerConnected(NetworkPlayer player)
+    //{
+    //    foreach(GameObject guy in GameObject.FindGameObjectsWithTag("Player"))
+    //    {
+    //        if(guy.GetComponent<NetworkBehaviour>().netId == player.)
+    //    }
+    //}
+
     [Command]
     void CmdProvideLevelToServer(string pLevel)
     {
         testLevel = pLevel;
     }
 
-    [Client]
-    public string SendLevel()
-    {
-        return testLevel;
-    }
+    //[Command]
+    //void CmdSendPlayerTheLevel(NetworkPlayer pPlayer)
+    //{
+    //    GameObject go = GameObject.Find(pPlayer.);
+    //}
 }

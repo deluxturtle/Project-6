@@ -28,16 +28,9 @@ public class Script_PlayerHealth : NetworkBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        //Update text every 2 seconds?
-        seconds += Time.deltaTime;
-        if(seconds > 2)
-        {
-            seconds = 0;
-            Debug.Log(health);
-        }
-
         CheckCondition();
-	}
+        SetHealthText();
+    }
 
     void CheckCondition()
     {
